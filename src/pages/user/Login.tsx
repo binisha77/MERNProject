@@ -1,20 +1,18 @@
-import { useEffect, useState, type ChangeEvent, type FormEvent } from "react"
+import { useState, type ChangeEvent, type FormEvent } from "react"
 import { useAppDispatch, useAppSelector } from "../../store/hooks"
 import { registerUser } from "../../store/authSlice"
-import { useNavigate } from "react-router-dom"
-import { Status } from "../../globals/types/type"
 
 
 
 
 
-function Register(){
-    const {status} = useAppSelector((store)=>store.auth)
-    console.log(status , "status yo ho")
-    const navigate = useNavigate()
+
+function Login(){
     const dispatch = useAppDispatch()
+    const userData = useAppSelector((store)=>store.auth)
+    console.log(userData)
   const [data,setData]= useState({
-    username:"",
+    
     password :"",
     email :""
   })
@@ -28,40 +26,25 @@ function Register(){
    const handleSubmit =(e:FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
     dispatch(registerUser(data))
-  
-   }
-useEffect(()=>{
-     if (status === Status.SUCESS){
-    navigate("/login")
-   
-   }else if (status=== Status.ERROR){
-    alert("something went wrong")
+
    }
 
-},[status,navigate,dispatch])
 
- 
   return(
-<div className="bg-gray-100 flex h-screen items-center justify-center px-4 sm:px-6 lg:px-8">
+    <div className="bg-gray-100 flex h-screen items-center justify-center px-4 sm:px-6 lg:px-8">
     <div className="w-full max-w-md space-y-8">
         <div className="bg-white shadow-md rounded-md p-6">
 
             <img className="mx-auto h-12 w-auto" src="https://www.svgrepo.com/show/499664/user-happy.svg" alt="" />
 
             <h2 className="my-3 text-center text-3xl font-bold tracking-tight text-gray-900">
-                Sign up For an account
+                Sign in
             </h2>
 
 
             <form className="space-y-6" onSubmit={handleSubmit}>
 
-                <div>
-                    <label htmlFor="new-password" className="block text-sm font-medium text-gray-700">Username</label>
-                    <div className="mt-1">
-                        <input name="username" type="username" required
-                            className="px-2 py-3 mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-sky-500 focus:outline-none focus:ring-sky-500 sm:text-sm" />
-                    </div>
-                </div>
+               
 
                 <div>
                     <label htmlFor="password" className="block text-sm font-medium text-gray-700">Email</label>
@@ -83,8 +66,8 @@ useEffect(()=>{
 
                 <div>
                     <button type="submit"
-                        className="flex w-full justify-center rounded-md border border-transparent bg-sky-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2">Register
-                        Account
+                        className="flex w-full justify-center rounded-md border border-transparent bg-sky-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2">
+                        login Account
                         </button>
                 </div>
             </form>
@@ -93,4 +76,4 @@ useEffect(()=>{
 </div>
   )
 }
-export default Register
+export default Login

@@ -2,6 +2,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { Status } from "../globals/types/type";
 import axios from "axios";
 import type { AppDispactch } from "./store";
+import API from "../http";
 
 
 
@@ -53,7 +54,7 @@ const initialState : IAuthState={
     try{
      const response = await 
      
-     axios.post("https://localhost:3000/api/auth/register",data)
+    API.post("/auth/register",data)
      console.log(response)
      if(response.status===201){
       dispatch(setStatus(Status.SUCESS))
@@ -75,7 +76,7 @@ else{
  export function loginUser(data:ILoginUser){
    return async function registerUserThunk(dispatch:AppDispactch) {
     try{
-     const response = await axios.post("https://localhost:3000/api/auth/login",data)
+     const response = await API.post("/auth/login",data)
 console.log(response)
 
 if(response.status===200){
@@ -98,7 +99,7 @@ if(response.status===200){
  export function forgotPassword(data:{email :string}){
   return async function forgotPasswordThunk(dispatch:AppDispactch){
     try{
-     const response = await axios.post("https://localhost:3000/api/auth/forgot-password",data)
+     const response = await axios.post("https://localhost:4000/api/auth/forgot-password",data)
 console.log(response)
 
 if(response.status===200){
