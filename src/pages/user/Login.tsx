@@ -1,6 +1,7 @@
 import { useState, type ChangeEvent, type FormEvent } from "react"
 import { useAppDispatch, useAppSelector } from "../../store/hooks"
-import { registerUser } from "../../store/authSlice"
+import { loginUser } from "../../store/authSlice"
+import { Link } from "react-router-dom"
 
 
 
@@ -25,7 +26,7 @@ function Login(){
   }
    const handleSubmit =(e:FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
-    dispatch(registerUser(data))
+    dispatch(loginUser(data))
 
    }
 
@@ -70,6 +71,8 @@ function Login(){
                         login Account
                         </button>
                 </div>
+
+               <p className="text-blue-500">Wanna Register? <Link to='/register'> Go to Register</Link></p>
             </form>
         </div>
     </div>

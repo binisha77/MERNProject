@@ -16,6 +16,7 @@ interface IUser{
     username :string | null,
     email :string | null,
     password :string | null
+    token : string | null
   }
   interface IAuthState{
     user : IUser,
@@ -26,7 +27,8 @@ const initialState : IAuthState={
   user:{
     username :null,
     email :null,
-    password :null
+    password :null,
+    token : null
   },
   status: Status.LOADING
 }
@@ -42,6 +44,9 @@ const initialState : IAuthState={
     },
     setStatus(state:IAuthState,action:PayloadAction<Status>){
         state.status =action.payload
+    },
+    setToken(state:IAuthState,action:PayloadAction<string>){
+      state.user.token = action.payload
     }
   }
   }
@@ -77,10 +82,18 @@ else{
    return async function registerUserThunk(dispatch:AppDispactch) {
     try{
      const response = await API.post("/auth/login",data)
-console.log(response)
+
 
 if(response.status===200){
   dispatch(setStatus(Status.SUCESS))
+  if(response.data.token){
+
+   localStorage.setItem("tokenHoYo",response.data.token)
+       dispatch(setToken(response.data.token))
+  }
+  else{
+    dispatch(setStatus(Status.ERROR))
+  }
 }else{
   dispatch(setStatus(Status.ERROR))
 }

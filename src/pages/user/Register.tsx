@@ -1,7 +1,7 @@
 import { useEffect, useState, type ChangeEvent, type FormEvent } from "react"
 import { useAppDispatch, useAppSelector } from "../../store/hooks"
 import { registerUser } from "../../store/authSlice"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Status } from "../../globals/types/type"
 
 
@@ -10,7 +10,7 @@ import { Status } from "../../globals/types/type"
 
 function Register(){
     const {status} = useAppSelector((store)=>store.auth)
-    console.log(status , "status yo ho")
+    console.log(status, "status yo ho")
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
   const [data,setData]= useState({
@@ -34,7 +34,7 @@ useEffect(()=>{
      if (status === Status.SUCESS){
     navigate("/login")
    
-   }else if (status=== Status.ERROR){
+   }else if (status === Status.ERROR){
     alert("something went wrong")
    }
 
@@ -87,6 +87,7 @@ useEffect(()=>{
                         Account
                         </button>
                 </div>
+                <p className="text-blue-500">Wanna Login? <Link  to='/register'> Go to Login</Link></p>
             </form>
         </div>
     </div>
