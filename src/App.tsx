@@ -5,7 +5,7 @@ import { BrowserRouter,Routes,Route} from 'react-router-dom'
 import Register from './pages/user/Register'
 import store from './store/store'
 import Home from './pages/home/home'
-import Login from './pages/user/login'
+import Login from './pages/user/Login'
 import Product from './pages/Product/Product'
 
 

@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { Status } from "../globals/types/type";
 import axios from "axios";
-import type { AppDispactch } from "./store";
+import type { AppDispatch } from "./store";
 import API from "../http";
 
 
@@ -22,7 +22,7 @@ interface IUser{
     user : IUser,
   status : Status
 }
-
+//initial state
 const initialState : IAuthState={
   user:{
     username :null,
@@ -33,7 +33,7 @@ const initialState : IAuthState={
   status: Status.LOADING
 }
 
-
+//slice
  const authSlice = createSlice({
   name :"auth",
   initialState,
@@ -51,18 +51,16 @@ const initialState : IAuthState={
   }
   }
 )
- export const {setStatus,setUser} = authSlice.actions
+ export const {setStatus,setUser,setToken} = authSlice.actions
  export default authSlice.reducer
 
  export function registerUser(data:IUser){
-  return async function registerUserThunk(dispatch:AppDispactch) {
+  return async function registerUserThunk(dispatch:AppDispatch) {
     try{
-     const response = await 
-     
-    API.post("/auth/register",data)
+     const response = await API.post("/auth/register",data)
      console.log(response)
      if(response.status===201){
-      dispatch(setStatus(Status.SUCESS))
+      dispatch(setStatus(Status.SUCCESS))
       dispatch(setUser(response.data.data))
      }
 else{
@@ -79,13 +77,13 @@ else{
 }
 
  export function loginUser(data:ILoginUser){
-   return async function registerUserThunk(dispatch:AppDispactch) {
+   return async function registerUserThunk(dispatch:AppDispatch) {
     try{
      const response = await API.post("/auth/login",data)
 
 
 if(response.status===200){
-  dispatch(setStatus(Status.SUCESS))
+  dispatch(setStatus(Status.SUCCESS))
   if(response.data.token){
 
    localStorage.setItem("tokenHoYo",response.data.token)
@@ -110,13 +108,13 @@ if(response.status===200){
 }
 
  export function forgotPassword(data:{email :string}){
-  return async function forgotPasswordThunk(dispatch:AppDispactch){
+  return async function forgotPasswordThunk(dispatch:AppDispatch){
     try{
      const response = await axios.post("https://localhost:4000/api/auth/forgot-password",data)
 console.log(response)
 
 if(response.status===200){
-  dispatch(setStatus(Status.SUCESS))
+  dispatch(setStatus(Status.SUCCESS))
 }else{
   dispatch(setStatus(Status.ERROR))
 }

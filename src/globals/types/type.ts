@@ -1,7 +1,7 @@
 
 
 export enum Status{
-  SUCESS ='sucess',
+  SUCCESS ='success',
   LOADING ='loading',
   ERROR ='error'
 }
