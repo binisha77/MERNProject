@@ -5,11 +5,11 @@ import { useEffect, useState } from "react"
 function Navbar(){
  const reduxToken = useAppSelector((store)=>store.auth.user.token)
  const localStorageToken = localStorage.getItem("tokenHoYo")
- const [isLoggedIn,setIsLoggenIn] = useState<boolean>(false)
+ const [isLoggedIn,setIsLoggedIn] = useState<boolean>(false)
 
  useEffect(()=>{
   console.log(reduxToken ,localStorageToken)
-  setIsLoggenIn(!!localStorageToken || !!reduxToken)
+  setIsLoggedIn(!!localStorageToken || !!reduxToken)
   // if(reduxToken  && localStorageToken){
   //   setIsLoggenIn(true)
    //}
