@@ -110,7 +110,7 @@ if(response.status===200){
  export function forgotPassword(data:{email :string}){
   return async function forgotPasswordThunk(dispatch:AppDispatch){
     try{
-     const response = await axios.post("https://localhost:4000/api/auth/forgot-password",data)
+     const response = await axios.post("auth/forgot-password",data)
 console.log(response)
 
 if(response.status===200){
