@@ -1,8 +1,8 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { Status } from "../globals/types/type";
-import axios from "axios";
+
 import type { AppDispatch } from "./store";
-import API from "../http";
+import {API} from "../http";
 
 
 
@@ -77,22 +77,25 @@ else{
 }
 
  export function loginUser(data:ILoginUser){
-   return async function registerUserThunk(dispatch:AppDispatch) {
+   return async function loginUserThunk(dispatch:AppDispatch) {
     try{
      const response = await API.post("/auth/login",data)
-
+     console.log("Login response:", response);
 
 if(response.status===200){
+   console.log("Login successful!");
   dispatch(setStatus(Status.SUCCESS))
-  if(response.data.token){
 
+  if(response.data.token){
    localStorage.setItem("tokenHoYo",response.data.token)
        dispatch(setToken(response.data.token))
   }
   else{
+     console.log("No token received!");
     dispatch(setStatus(Status.ERROR))
   }
 }else{
+  console.log("Login failed with status:", response.status);
   dispatch(setStatus(Status.ERROR))
 }
 
@@ -110,7 +113,7 @@ if(response.status===200){
  export function forgotPassword(data:{email :string}){
   return async function forgotPasswordThunk(dispatch:AppDispatch){
     try{
-     const response = await axios.post("auth/forgot-password",data)
+     const response = await API.post("/auth/forgot-password",data)
 console.log(response)
 
 if(response.status===200){
